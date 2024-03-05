@@ -4,6 +4,7 @@ import com.example.database.dao.impl.AuthorDaoImpl;
 import com.example.database.domain.Author;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -42,7 +43,10 @@ public class AuthorDaoImplTests {
     @Test
     public void testThatFindOneGenerateCorrectSQL(){
         underTest.findOne(1L);
-        verify(jdbcTemplate).query("SELECT id, name, age, WHERE id = ? LIMIT 1", any(RowMapper.class),eq(1L));
+        verify(jdbcTemplate).query(
+                eq("SELECT id, name, age, WHERE id = ? LIMIT 1"),
+                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
+                eq(1L));
 
     }
 
