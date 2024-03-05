@@ -8,7 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
@@ -35,6 +37,13 @@ public class AuthorDaoImplTests {
                 eq(1L),
                 eq("Shannon John"),
                 eq(21));
+    }
+
+    @Test
+    public void testThatFindOneGenerateCorrectSQL(){
+        underTest.findOne(1L);
+        verify(jdbcTemplate).query("SELECT id, name, age, WHERE id = ? LIMIT 1", any(RowMapper.class),eq(1L));
+
     }
 
 }
