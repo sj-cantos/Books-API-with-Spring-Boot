@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class AuthorDaoImpl implements AuthorDao {
@@ -23,9 +24,9 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public Optional<Author> findOne(long l) {
-//        jdbcTemplate.query("SELECT id, name, age FROM authors WHERE id = ? LIMIT 1", );
-        return Optional.empty();
+    public Optional<Author> findOne(long authorId) {
+        List<Author> authors = jdbcTemplate.query("SELECT id, name, age FROM authors WHERE id = ? LIMIT 1", new AuthorRowMapper(), authorId );
+        return authors.stream().findFirst();
     }
 
     public static class AuthorRowMapper implements RowMapper<Author> {

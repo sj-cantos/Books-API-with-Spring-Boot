@@ -44,7 +44,7 @@ public class AuthorDaoImplTests {
     public void testThatFindOneGenerateCorrectSQL(){
         underTest.findOne(1L);
         verify(jdbcTemplate).query(
-                eq("SELECT id, name, age, WHERE id = ? LIMIT 1"),
+                eq("SELECT id, name, age FROM authors WHERE id = ? LIMIT 1"),
                 ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
                 eq(1L));
 
