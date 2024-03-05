@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class BookDaoImpl implements BookDao {
@@ -27,7 +28,9 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Optional<Book> findOne(long authorId){
-        return Optional.empty();
+        List<Book> books = jdbcTemplate.query("SELECT author_id,isbn,title FROM books WHERE author_id = ? LIMIT 1",
+                new BookRowMapper(), authorId);
+        return books.stream().findFirst();
     }
 
     public static class BookRowMapper implements RowMapper {
