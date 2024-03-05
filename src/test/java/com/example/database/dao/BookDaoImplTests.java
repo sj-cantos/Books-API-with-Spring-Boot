@@ -1,9 +1,11 @@
 package com.example.database.dao;
 
+import com.example.database.dao.impl.AuthorDaoImpl;
 import com.example.database.dao.impl.BookDaoImpl;
 import com.example.database.domain.Book;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -35,6 +37,14 @@ public class BookDaoImplTests {
                eq("QWEQ-123421-3432"),
                eq("The Little Prince"),
                eq(1L));
+    }
+
+    @Test
+    public void testThatFindOneBookGenerateCorrectSQL(){
+        underTest.findOne(1L);
+        verify(jdbcTemplate).query(eq("SELECT author_id,isbn,title FROM books WHERE author_id = ? LIMIT 1"),
+                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
+                eq(1L));
     }
 
 

@@ -3,6 +3,11 @@ package com.example.database.dao.impl;
 import com.example.database.dao.BookDao;
 import com.example.database.domain.Book;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class BookDaoImpl implements BookDao {
 
@@ -19,4 +24,22 @@ public class BookDaoImpl implements BookDao {
                 book.getTitle(),
                 book.getAuthorId());
     }
+
+    @Override
+    public Optional<Book> findOne(long authorId){
+        return Optional.empty();
+    }
+
+    public static class BookRowMapper implements RowMapper {
+        @Override
+        public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return Book.builder()
+                    .authorId(rs.getLong("author_id"))
+                    .title(rs.getString("title"))
+                    .isbn(rs.getString("isbn"))
+                    .build();
+        }
+    }
+
+
 }
