@@ -41,10 +41,10 @@ public class BookDaoImplTests {
 
     @Test
     public void testThatFindOneBookGenerateCorrectSQL(){
-        underTest.findOne(1L);
-        verify(jdbcTemplate).query(eq("SELECT author_id,isbn,title FROM books WHERE author_id = ? LIMIT 1"),
-                ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any(),
-                eq(1L));
+        underTest.findOne("QWEQ-123421-3432");
+        verify(jdbcTemplate).query(eq("SELECT author_id,isbn,title FROM books WHERE isbn = ? LIMIT 1"),
+                ArgumentMatchers.<BookDaoImpl.BookRowMapper>any(),
+                eq("QWEQ-123421-3432"));
     }
 
 

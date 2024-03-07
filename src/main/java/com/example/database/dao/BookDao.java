@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface BookDao {
     void create(Book book);
 
-    Optional<Book> findOne(long authorId);
+    Optional<Book> findOne(String isbn);
 }
