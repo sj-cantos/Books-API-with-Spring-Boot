@@ -1,5 +1,6 @@
 package com.example.database.dao;
 
+import com.example.database.TestDataUtil;
 import com.example.database.dao.impl.AuthorDaoImpl;
 import com.example.database.domain.Author;
 import org.junit.jupiter.api.Test;
@@ -9,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -26,11 +26,7 @@ public class AuthorDaoImplTests {
 
     @Test
     public void testThatCreateAuthorHasCorrectSQL(){
-        Author author = Author.builder().
-                age(21).
-                id(1L).
-                name("Shannon John").
-                build();
+        Author author = TestDataUtil.createTestAuthor();
 
         underTest.create(author);
 
