@@ -2,14 +2,17 @@ package com.example.database.dao.impl;
 
 import com.example.database.dao.BookDao;
 import com.example.database.domain.Book;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class BookDaoImpl implements BookDao {
 
     private final JdbcTemplate jdbcTemplate;
