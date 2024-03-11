@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static  org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -24,7 +26,7 @@ public class AuthorDaoImplIntegrationTests {
     @Test
     public void TestThatAuthorIsCreated(){
 
-        Author author = TestDataUtil.createTestAuthor();
+        Author author = TestDataUtil.createTestAuthor1();
         underTest.create(author);
         Optional<Author> result = underTest.findOne(author.getId());
         assertThat(result).isPresent();
@@ -32,6 +34,22 @@ public class AuthorDaoImplIntegrationTests {
 
     }
 
+    @Test
+    public void TestThatAuthorIsFetchedAfterCreation(){
+        Author author1 = TestDataUtil.createTestAuthor1();
+        underTest.create(author1);
+        Author author2 = TestDataUtil.createTestAuthor2();
+        underTest.create(author2);
+        Author author3 = TestDataUtil.createTestAuthor3();
+        underTest.create(author3);
+
+        List<Author> results = underTest.findMany();
+        assertThat(results).hasSize(3).
+                            containsExactly(author1,author2,author3);
+
+
+
+    }
 
 
 }

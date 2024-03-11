@@ -28,7 +28,7 @@ public class BookDaoImplIntegrationTests {
     @Test
     public void TestThatBookIsCreated(){
 
-        Author author = TestDataUtil.createTestAuthor();
+        Author author = TestDataUtil.createTestAuthor1();
         authorDao.create(author);
         Book book = TestDataUtil.createBook();
         book.setAuthorId(author.getId());
