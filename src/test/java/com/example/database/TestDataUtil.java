@@ -2,7 +2,6 @@ package com.example.database;
 
 import com.example.database.domain.Author;
 import com.example.database.domain.Book;
-import org.springframework.test.annotation.TestAnnotationUtils;
 
 public final class TestDataUtil {
     private TestDataUtil(){
@@ -31,10 +30,24 @@ public final class TestDataUtil {
                 build();
     }
 
-    public static Book createBook() {
+    public static Book createBookA() {
         return Book.builder()
                 .isbn("QWEQ-123421-3432")
                 .title("The Little Prince")
+                .authorId(1L)
+                .build();
+    }
+    public static Book createBookB() {
+        return Book.builder()
+                .isbn("QWEQ-123421-3433")
+                .title("Noli Me Tangere")
+                .authorId(1L)
+                .build();
+    }
+    public static Book createBookC() {
+        return Book.builder()
+                .isbn("QWEQ-123421-3434")
+                .title("El FIlibusterismo")
                 .authorId(1L)
                 .build();
     }

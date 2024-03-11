@@ -31,7 +31,7 @@ public class BookDaoImplIntegrationTests {
 
         Author author = TestDataUtil.createTestAuthor1();
         authorDao.create(author);
-        Book book = TestDataUtil.createBook();
+        Book book = TestDataUtil.createBookA();
         book.setAuthorId(author.getId());
         underTest.create(book);
         Optional<Book> result = underTest.findOne(book.getIsbn());
@@ -41,13 +41,24 @@ public class BookDaoImplIntegrationTests {
 
     @Test
     public void TestThatBooksAreFetchedAfterCreation(){
-        Book book = TestDataUtil.createBook();
+
         Author author = TestDataUtil.createTestAuthor1();
         authorDao.create(author);
-        book.setAuthorId(author.getId());
-        underTest.create(book);
+
+        Book bookA = TestDataUtil.createBookA();
+        bookA.setAuthorId(author.getId());
+        underTest.create(bookA);
+
+        Book bookB = TestDataUtil.createBookB();
+        bookB.setAuthorId(author.getId());
+        underTest.create(bookB);
+
+        Book bookC = TestDataUtil.createBookC();
+        bookC.setAuthorId(author.getId());
+        underTest.create(bookC);
+
         List<Book> result = underTest.findMany();
-        assertThat(result).hasSize(1).containsExactly(book);
+        assertThat(result).hasSize(3).containsExactly(bookA,bookB,bookC);
 
     }
 
