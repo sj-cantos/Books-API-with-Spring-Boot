@@ -44,7 +44,12 @@ public class BookDaoImplTests {
                 eq("QWEQ-123421-3432"));
     }
 
-
+    @Test
+    public void testThatFindManyGenerateCorrectSQL(){
+        underTest.findMany();
+        verify(jdbcTemplate).query(eq("SELECT author_id, title, isbn FROM books"),
+                                    ArgumentMatchers.<BookDaoImpl.BookRowMapper>any());
+    }
 
 
 
