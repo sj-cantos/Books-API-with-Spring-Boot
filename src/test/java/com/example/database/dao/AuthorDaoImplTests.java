@@ -51,5 +51,12 @@ public class AuthorDaoImplTests {
         verify(jdbcTemplate).query(eq("SELECT id, name, age FROM authors"),
                 ArgumentMatchers.<AuthorDaoImpl.AuthorRowMapper>any());
     }
+    @Test
+    public void testThatUpdateAuthorGenerateCorrectSQL(){
+        Author author = TestDataUtil.createTestAuthor1();
+        underTest.update(author);
+        verify(jdbcTemplate).update("UPDATE authors SET name = ?, age = ? WHERE id = ?",
+                "Shannon John", 20, 1L);
+    }
 
 }

@@ -37,6 +37,11 @@ public class AuthorDaoImpl implements AuthorDao {
                                         new AuthorRowMapper());
     }
 
+    @Override
+    public void update(Author author) {
+
+    }
+
     public static class AuthorRowMapper implements RowMapper<Author> {
         @Override
         public Author mapRow(ResultSet rs, int rowNum) throws SQLException {
