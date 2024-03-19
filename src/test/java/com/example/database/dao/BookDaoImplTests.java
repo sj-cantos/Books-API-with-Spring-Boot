@@ -4,6 +4,7 @@ import com.example.database.TestDataUtil;
 import com.example.database.dao.impl.BookDaoImpl;
 import com.example.database.domain.Book;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
@@ -49,6 +50,16 @@ public class BookDaoImplTests {
         underTest.findMany();
         verify(jdbcTemplate).query(eq("SELECT author_id, title, isbn FROM books"),
                                     ArgumentMatchers.<BookDaoImpl.BookRowMapper>any());
+    }
+
+    @Test
+    public void testThatUpdateGenerateCorrectSQL(){
+        Book book = TestDataUtil.createBookA();
+        underTest.update(book);
+
+        verify(jdbcTemplate).update("UPDATE books SET author_id = ?, title = ? WHERE isbn = ?",
+                1L,"The Little Prince","QWEQ-123421-3432");
+
     }
 
 
