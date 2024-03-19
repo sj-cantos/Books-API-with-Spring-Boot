@@ -64,4 +64,16 @@ public class BookDaoImplIntegrationTests {
 
     }
 
+    @Test
+    public void TestThatBooksAreUpdated(){
+        Book book = TestDataUtil.createBookA();
+        underTest.create(book);
+        book.setTitle("Hello");
+        underTest.update(book, book.getIsbn());
+        Optional<Book> result = underTest.findOne(book.getIsbn());
+
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(book);
+    }
+
 }
