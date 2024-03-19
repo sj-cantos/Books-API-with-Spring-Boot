@@ -54,9 +54,9 @@ public class AuthorDaoImplTests {
     @Test
     public void testThatUpdateAuthorGenerateCorrectSQL(){
         Author author = TestDataUtil.createTestAuthor1();
-        underTest.update(author);
+        underTest.update(author,3L);
         verify(jdbcTemplate).update("UPDATE authors SET name = ?, age = ? WHERE id = ?",
-                "Shannon John", 20, 1L);
+                "Shannon John", 20, 3L);
     }
 
 }

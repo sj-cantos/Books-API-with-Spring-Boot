@@ -38,11 +38,11 @@ public class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public void update(Author author) {
+    public void update(Author author , long id) {
         jdbcTemplate.update("UPDATE authors SET name = ?, age = ? WHERE id = ?",
                                 author.getName(),
                                 author.getAge(),
-                                author.getId());
+                                id);
     }
 
     public static class AuthorRowMapper implements RowMapper<Author> {
