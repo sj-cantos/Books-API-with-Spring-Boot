@@ -55,10 +55,10 @@ public class BookDaoImplTests {
     @Test
     public void testThatUpdateGenerateCorrectSQL(){
         Book book = TestDataUtil.createBookA();
-        underTest.update(book);
+        underTest.update(book,"ABC-123-DEF");
 
         verify(jdbcTemplate).update("UPDATE books SET author_id = ?, title = ? WHERE isbn = ?",
-                1L,"The Little Prince","QWEQ-123421-3432");
+                1L,"The Little Prince","ABC-123-DEF");
 
     }
 
