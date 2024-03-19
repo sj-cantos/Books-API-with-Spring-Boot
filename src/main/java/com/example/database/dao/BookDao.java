@@ -13,4 +13,6 @@ public interface BookDao {
     List<Book> findMany();
 
     void update(Book book, String isbn);
+
+    void delete(String isbn);
 }
