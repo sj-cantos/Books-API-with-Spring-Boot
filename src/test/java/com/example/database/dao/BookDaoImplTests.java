@@ -58,7 +58,7 @@ public class BookDaoImplTests {
         underTest.update(book,"ABC-123-DEF");
 
         verify(jdbcTemplate).update("UPDATE books SET author_id = ?, title = ? WHERE isbn = ?",
-                book.getAuthorId(),book.getTitle(),"ABC-123-DEF" );
+                1L,"The Little Prince","ABC-123-DEF" );
 
     }
 
