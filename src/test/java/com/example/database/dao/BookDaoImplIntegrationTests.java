@@ -92,7 +92,7 @@ public class BookDaoImplIntegrationTests {
         underTest.delete(book.getIsbn());
 
         Optional<Book> result = underTest.findOne(book.getIsbn());
-        assertThat(result).isNotPresent();
+        assertThat(result).isEmpty();
 
     }
 
