@@ -62,6 +62,15 @@ public class BookDaoImplTests {
 
     }
 
+    @Test
+    public void testThatDeleteGenerateCorrectSQL(){
+
+        underTest.delete("QWEQ-123421-3432");
+
+        verify(jdbcTemplate).update("DELETE FROM books WHERE isbn = ?",
+                                    "QWEQ-123421-3432");
+    }
+
 
 
 }
