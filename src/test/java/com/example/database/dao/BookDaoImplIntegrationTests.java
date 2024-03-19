@@ -66,8 +66,12 @@ public class BookDaoImplIntegrationTests {
 
     @Test
     public void TestThatBooksAreUpdated(){
+        Author author = TestDataUtil.createTestAuthor1();
+        authorDao.create(author);
+
         Book book = TestDataUtil.createBookA();
         underTest.create(book);
+        book.setAuthorId(author.getId());
         book.setTitle("Hello");
         underTest.update(book, book.getIsbn());
         Optional<Book> result = underTest.findOne(book.getIsbn());
