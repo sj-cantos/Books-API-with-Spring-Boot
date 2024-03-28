@@ -1,4 +1,4 @@
 package com.example.database.repositories;
 
-public class AuthorRepository {
+public interface AuthorRepository {
 }

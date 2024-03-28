@@ -16,8 +16,10 @@ import lombok.NoArgsConstructor;
 public class Book {
     @Id
     private String isbn;
+
     @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private Author author;
+
     private String title;
 }
