@@ -60,36 +60,32 @@ public class BookRepositoryTests {
 
     }
 
-//    @Test
-//    public void TestThatBooksAreUpdated(){
-//        Author author = TestDataUtil.createTestAuthor1();
-//        authorDao.create(author);
+    @Test
+    public void TestThatBooksAreUpdated(){
+        Author author = TestDataUtil.createTestAuthor1();
+
+        Book book = TestDataUtil.createBookA(author);
+        underTest.save(book);
+        book.setTitle("Hello");
+        underTest.save(book);
+        Optional<Book> result = underTest.findById(book.getIsbn());
+
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(book);
+    }
 //
-//        Book book = TestDataUtil.createBookA();
-//        underTest.create(book);
-//        book.setAuthorId(author.getId());
-//        book.setTitle("Hello");
-//        underTest.update(book, book.getIsbn());
-//        Optional<Book> result = underTest.findOne(book.getIsbn());
-//
-//        assertThat(result).isPresent();
-//        assertThat(result.get()).isEqualTo(book);
-//    }
-//
-//    @Test
-//    public void TestThatBooksAreDeleted(){
-//        Author author = TestDataUtil.createTestAuthor1();
-//        authorDao.create(author);
-//
-//        Book book = TestDataUtil.createBookA();
-//        book.setAuthorId(author.getId());
-//        underTest.create(book);
-//
-//        underTest.delete(book.getIsbn());
-//
-//        Optional<Book> result = underTest.findOne(book.getIsbn());
-//        assertThat(result).isEmpty();
-//
-//    }
+    @Test
+    public void TestThatBooksAreDeleted(){
+        Author author = TestDataUtil.createTestAuthor1();
+
+        Book book = TestDataUtil.createBookA(author);
+        underTest.save(book);
+
+        underTest.deleteById(book.getIsbn());
+
+        Optional<Book> result = underTest.findById(book.getIsbn());
+        assertThat(result).isEmpty();
+
+    }
 
 }
