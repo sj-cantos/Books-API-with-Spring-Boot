@@ -30,25 +30,25 @@ public final class TestDataUtil {
                 build();
     }
 
-    public static Book createBookA() {
+    public static Book createBookA(final Author author) {
         return Book.builder()
                 .isbn("QWEQ-123421-3432")
                 .title("The Little Prince")
-                .authorId(1L)
+                .author(author)
                 .build();
     }
-    public static Book createBookB() {
+    public static Book createBookB(final Author author) {
         return Book.builder()
                 .isbn("QWEQ-123421-3433")
                 .title("Noli Me Tangere")
-                .authorId(1L)
+                .author(author)
                 .build();
     }
-    public static Book createBookC() {
+    public static Book createBookC( final Author author) {
         return Book.builder()
                 .isbn("QWEQ-123421-3434")
                 .title("El FIlibusterismo")
-                .authorId(1L)
+                .author(author)
                 .build();
     }
 }
