@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,29 +41,25 @@ public class BookRepositoryTests {
         assertThat(result.get()).isEqualTo(book);
     }
 //
-//    @Test
-//    public void TestThatBooksAreFetchedAfterCreation(){
-//
-//        Author author = TestDataUtil.createTestAuthor1();
-//        authorDao.create(author);
-//
-//        Book bookA = TestDataUtil.createBookA();
-//        bookA.setAuthorId(author.getId());
-//        underTest.create(bookA);
-//
-//        Book bookB = TestDataUtil.createBookB();
-//        bookB.setAuthorId(author.getId());
-//        underTest.create(bookB);
-//
-//        Book bookC = TestDataUtil.createBookC();
-//        bookC.setAuthorId(author.getId());
-//        underTest.create(bookC);
-//
-//        List<Book> result = underTest.findMany();
-//        assertThat(result).hasSize(3).containsExactly(bookA,bookB,bookC);
-//
-//    }
-//
+    @Test
+    public void TestThatBooksAreFetchedAfterCreation(){
+
+        Author author = TestDataUtil.createTestAuthor1();
+
+        Book bookA = TestDataUtil.createBookA(author);
+        underTest.save(bookA);
+
+        Book bookB = TestDataUtil.createBookB(author);
+        underTest.save(bookB);
+
+        Book bookC = TestDataUtil.createBookC(author);
+        underTest.save(bookC);
+
+        Iterable<Book> result = underTest.findAll();
+        assertThat(result).hasSize(3).containsExactly(bookA,bookB,bookC);
+
+    }
+
 //    @Test
 //    public void TestThatBooksAreUpdated(){
 //        Author author = TestDataUtil.createTestAuthor1();
