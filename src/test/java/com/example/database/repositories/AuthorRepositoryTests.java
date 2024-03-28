@@ -36,20 +36,20 @@ public class AuthorRepositoryTests {
 
     }
 
-//    @Test
-//    public void TestThatAuthorIsFetchedAfterCreation(){
-//        Author author1 = TestDataUtil.createTestAuthor1();
-//        underTest.create(author1);
-//        Author author2 = TestDataUtil.createTestAuthor2();
-//        underTest.create(author2);
-//        Author author3 = TestDataUtil.createTestAuthor3();
-//        underTest.create(author3);
-//
-//        List<Author> results = underTest.findMany();
-//        assertThat(results).hasSize(3).
-//                            containsExactly(author1,author2,author3);
-//
-//    }
+    @Test
+    public void TestThatAuthorIsFetchedAfterCreation(){
+        Author author1 = TestDataUtil.createTestAuthor1();
+        underTest.save(author1);
+        Author author2 = TestDataUtil.createTestAuthor2();
+        underTest.save(author2);
+        Author author3 = TestDataUtil.createTestAuthor3();
+        underTest.save(author3);
+
+        Iterable<Author> results = underTest.findAll();
+        assertThat(results).hasSize(3).
+                            containsExactly(author1,author2,author3);
+
+    }
 //
 //    @Test
 //    public void TestThatAuthorIsUpdated(){
