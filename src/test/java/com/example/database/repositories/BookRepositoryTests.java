@@ -34,7 +34,6 @@ public class BookRepositoryTests {
         Author author = TestDataUtil.createTestAuthor1();
         authorDao.save(author);
         Book book = TestDataUtil.createBookA(author);
-        book.setAuthor(author);
         underTest.save(book);
         Optional<Book> result = underTest.findById(book.getIsbn());
         assertThat(result).isPresent();
