@@ -50,26 +50,26 @@ public class AuthorRepositoryTests {
                             containsExactly(author1,author2,author3);
 
     }
-//
-//    @Test
-//    public void TestThatAuthorIsUpdated(){
-//        Author author1 = TestDataUtil.createTestAuthor1();
-//        underTest.create(author1);
-//        author1.setName("Updated");
-//        underTest.update(author1,author1.getId() );
-//        Optional<Author> result = underTest.findOne(author1.getId());
-//
-//        assertThat(result).isPresent();
-//        assertThat(result.get()).isEqualTo(author1);
-//    }
-//    @Test
-//    public void TestThatAuthorIsDeleted(){
-//        Author author1 = TestDataUtil.createTestAuthor1();
-//        underTest.create(author1);
-//        underTest.delete(author1.getId());
-//        Optional<Author> result = underTest.findOne(author1.getId());
-//        assertThat(result).isEmpty();
-//    }
+
+    @Test
+    public void TestThatAuthorIsUpdated(){
+        Author author1 = TestDataUtil.createTestAuthor1();
+        underTest.save(author1);
+        author1.setName("Updated");
+        underTest.save(author1);
+        Optional<Author> result = underTest.findById(author1.getId());
+
+        assertThat(result).isPresent();
+        assertThat(result.get()).isEqualTo(author1);
+    }
+    @Test
+    public void TestThatAuthorIsDeleted(){
+        Author author1 = TestDataUtil.createTestAuthor1();
+        underTest.save(author1);
+        underTest.delete(author1);
+        Optional<Author> result = underTest.findById(author1.getId());
+        assertThat(result).isEmpty();
+    }
 
 
 
