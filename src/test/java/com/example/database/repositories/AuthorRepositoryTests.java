@@ -71,6 +71,19 @@ public class AuthorRepositoryTests {
         assertThat(result).isEmpty();
     }
 
+    @Test
+    public void TestThatAgeLessThanIsFetched(){
+        Author authorA = TestDataUtil.createTestAuthor1();
+        underTest.save(authorA);
+        Author authorB = TestDataUtil.createTestAuthor2();
+        underTest.save(authorB);
+        Author authorC = TestDataUtil.createTestAuthor3();
+        underTest.save(authorC);
+
+        Iterable<Author> results = underTest.ageLessThan(50);
+        assertThat(results).containsExactly(authorB,authorC);
+    }
+
 
 
 }
