@@ -2,12 +2,18 @@ package com.example.database.mappers.impl;
 
 import com.example.database.domain.dto.AuthorDto;
 import com.example.database.domain.entities.AuthorEntity;
-import com.example.database.mappers.AuthorMapper;
+import com.example.database.mappers.Mapper;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
-public class AuthorMapperImpl implements AuthorMapper<AuthorEntity, AuthorDto> {
+@Component
+public class MapperImpl implements Mapper<AuthorEntity, AuthorDto> {
 
     private ModelMapper modelMapper;
+
+    public MapperImpl(ModelMapper modelMapper){
+        this.modelMapper = modelMapper;
+    }
     @Override
     public AuthorDto mapTo(AuthorEntity authorEntity) {
         return modelMapper.map(authorEntity,AuthorDto.class);
