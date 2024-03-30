@@ -5,7 +5,7 @@ import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.mappers.AuthorMapper;
 import org.modelmapper.ModelMapper;
 
-public class AuhorMapperImpl implements AuthorMapper<AuthorEntity, AuthorDto> {
+public class AuthorMapperImpl implements AuthorMapper<AuthorEntity, AuthorDto> {
 
     private ModelMapper modelMapper;
     @Override
