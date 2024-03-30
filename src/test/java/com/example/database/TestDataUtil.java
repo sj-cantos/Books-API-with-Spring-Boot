@@ -1,7 +1,7 @@
 package com.example.database;
 
-import com.example.database.domain.AuthorEntity;
-import com.example.database.domain.BookEntity;
+import com.example.database.domain.entities.AuthorEntity;
+import com.example.database.domain.entities.BookEntity;
 
 public final class TestDataUtil {
     private TestDataUtil(){

@@ -1,8 +1,8 @@
 package com.example.database.repositories;
 
 import com.example.database.TestDataUtil;
-import com.example.database.domain.AuthorEntity;
-import com.example.database.domain.BookEntity;
+import com.example.database.domain.entities.AuthorEntity;
+import com.example.database.domain.entities.BookEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

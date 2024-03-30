@@ -1,6 +1,6 @@
 package com.example.database.repositories;
 
-import com.example.database.domain.AuthorEntity;
+import com.example.database.domain.entities.AuthorEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
