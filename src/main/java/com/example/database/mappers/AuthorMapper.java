@@ -1,7 +1,7 @@
 package com.example.database.mappers;
 
 public interface AuthorMapper<A,B> {
-    A mapTo(B b);
+    B mapTo(A a);
 
-    B mapFrom(A a);
+    A mapFrom(B b);
 }
