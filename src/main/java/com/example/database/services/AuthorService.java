@@ -1,7 +1,7 @@
 package com.example.database.services;
 
-import com.example.database.domain.Author;
+import com.example.database.domain.AuthorEntity;
 
 public interface AuthorService {
-    Author createAuthor(Author author);
+    AuthorEntity createAuthor(AuthorEntity authorEntity);
 }

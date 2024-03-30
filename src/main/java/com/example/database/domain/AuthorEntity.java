@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 @Table(name = "authors")
-public class Author {
+public class AuthorEntity {
 
     private String name;
     @Id

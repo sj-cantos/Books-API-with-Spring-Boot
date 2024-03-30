@@ -1,6 +1,6 @@
 package com.example.database.controllers;
 
-import com.example.database.domain.Author;
+import com.example.database.domain.dto.AuthorDto;
 import com.example.database.services.AuthorService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +14,7 @@ public class AuthorController {
         this.authorService = authorService;
     }
     @PostMapping("/authors")
-    public Author createAuthor(@RequestBody Author author){
+    public AuthorDto createAuthor(@RequestBody AuthorDto author){
         return authorService.createAuthor(author);
     }
 }

@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "books")
 
-public class Book {
+public class BookEntity {
     @Id
     private String isbn;
 
     @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
-    private Author author;
+    private AuthorEntity authorEntity;
 
     private String title;
 }
