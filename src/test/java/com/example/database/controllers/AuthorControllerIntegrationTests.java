@@ -47,5 +47,25 @@ public class AuthorControllerIntegrationTests {
         );
 
     }
+    @Test
+    public void testThatCreateAuthorIsReturned() throws Exception {
+        AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
+        authorEntity.setId(null);
+        String authorJson = objectMapper.writeValueAsString(authorEntity);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.post("/authors")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(authorJson)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").isNumber()
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value("Shannon John")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(70));
+
+
+
+    }
 
 }
