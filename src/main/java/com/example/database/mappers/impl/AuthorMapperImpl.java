@@ -7,11 +7,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MapperImpl implements Mapper<AuthorEntity, AuthorDto> {
+public class AuthorMapperImpl implements Mapper<AuthorEntity, AuthorDto> {
 
     private ModelMapper modelMapper;
 
-    public MapperImpl(ModelMapper modelMapper){
+    public AuthorMapperImpl(ModelMapper modelMapper){
         this.modelMapper = modelMapper;
     }
     @Override
@@ -23,4 +23,6 @@ public class MapperImpl implements Mapper<AuthorEntity, AuthorDto> {
     public AuthorEntity mapFrom(AuthorDto authorDto) {
         return modelMapper.map(authorDto, AuthorEntity.class);
     }
+
+
 }
