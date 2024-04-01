@@ -2,6 +2,7 @@ package com.example.database.controllers;
 
 import com.example.database.domain.dto.AuthorDto;
 import com.example.database.domain.dto.BookDto;
+import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.domain.entities.BookEntity;
 import com.example.database.mappers.Mapper;
 import com.example.database.mappers.impl.BookMapperImpl;
@@ -10,6 +11,9 @@ import com.example.database.services.impl.BookServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class BookController {
@@ -26,5 +30,13 @@ public class BookController {
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
         BookEntity savedBookEntity = bookService.save(bookEntity,isbn);
         return new ResponseEntity<>(bookMapper.mapTo(savedBookEntity),HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/books")
+    public List<BookDto> findAll(){
+        List<BookEntity> bookEntityList = bookService.findAll();
+        return bookEntityList.stream()
+                .map(bookMapper::mapTo)
+                .collect(Collectors.toList());
     }
 }
