@@ -1,5 +1,7 @@
 package com.example.database;
 
+import com.example.database.domain.dto.AuthorDto;
+import com.example.database.domain.dto.BookDto;
 import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.domain.entities.BookEntity;
 
@@ -49,6 +51,13 @@ public final class TestDataUtil {
                 .isbn("QWEQ-123421-3434")
                 .title("El FIlibusterismo")
                 .authorEntity(authorEntity)
+                .build();
+    }
+    public static BookDto createBookDtoA(final AuthorDto author) {
+        return BookDto.builder()
+                .isbn("QWEQ-123421-3434")
+                .title("El FIlibusterismo")
+                .author(author)
                 .build();
     }
 }
