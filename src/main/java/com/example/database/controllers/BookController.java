@@ -39,4 +39,11 @@ public class BookController {
                 .map(bookMapper::mapTo)
                 .collect(Collectors.toList());
     }
+    @GetMapping(path = "/books/{isbn}")
+    public BookDto findOne(@PathVariable("isbn") String isbn){
+        BookEntity bookEntity = bookService.findOne(isbn);
+        BookDto bookDto = bookMapper.mapTo(bookEntity);
+        return bookDto;
+    }
+
 }
