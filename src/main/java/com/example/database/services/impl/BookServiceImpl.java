@@ -1,11 +1,13 @@
 package com.example.database.services.impl;
 
+import com.example.database.domain.dto.BookDto;
 import com.example.database.domain.entities.BookEntity;
 import com.example.database.repositories.BookRepository;
 import com.example.database.services.BookService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -26,5 +28,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookEntity> findAll() {
         return StreamSupport.stream(bookRepository.findAll().spliterator(),false).collect(Collectors.toList());
+    }
+
+    @Override
+    public BookEntity findOne(String isbn) {
+        Optional<BookEntity> foundBook = bookRepository.findById(isbn);
+        if(foundBook.isPresent()){
+            BookEntity book = foundBook.get();
+            return book;
+        }
+        return null;
     }
 }
