@@ -37,9 +37,12 @@ public class AuthorController {
 
     }
     @GetMapping(path = "/authors/{id}")
-    public AuthorDto findOne(@PathVariable("id") long id){
+    public ResponseEntity<AuthorDto> findOne(@PathVariable("id") long id){
         AuthorEntity authorEntity = authorService.findOne(id);
-        AuthorDto authorDto = authorMapper.mapTo(authorEntity);
-        return authorDto;
+        if(authorEntity == null){
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(authorMapper.mapTo(authorEntity), HttpStatus.CREATED);
+
     }
 }
