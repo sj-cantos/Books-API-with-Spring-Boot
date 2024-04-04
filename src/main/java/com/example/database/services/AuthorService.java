@@ -8,4 +8,5 @@ import java.util.List;
 public interface AuthorService {
     AuthorEntity save(AuthorEntity authorEntity);
     List<AuthorEntity> findAll();
+    AuthorEntity findOne(long id);
 }
