@@ -6,10 +6,7 @@ import com.example.database.mappers.Mapper;
 import com.example.database.services.AuthorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,5 +35,10 @@ public class AuthorController {
                 .map(authorMapper::mapTo)
                 .collect(Collectors.toList());
 
+    }
+    @GetMapping(path = "/authors/{id}")
+    public AuthorEntity findOne(@PathVariable("id") long id){
+        AuthorEntity authorEntity = authorService.findOne(id);
+        return authorEntity;
     }
 }
