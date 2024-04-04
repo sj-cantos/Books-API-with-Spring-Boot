@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,12 +38,14 @@ public class AuthorController {
 
     }
     @GetMapping(path = "/authors/{id}")
-    public ResponseEntity<AuthorDto> findOne(@PathVariable("id") long id){
-        AuthorEntity authorEntity = authorService.findOne(id);
-        if(authorEntity == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(authorMapper.mapTo(authorEntity));
+    public ResponseEntity<AuthorDto> getAuthor(@PathVariable("id") long id){
+        Optional<AuthorEntity> foundAuthor = authorService.findOne(id);
+        return foundAuthor.map(authorEntity -> {
+            AuthorDto authorDto = authorMapper.mapTo(authorEntity);
+            return new ResponseEntity<>(authorDto,HttpStatus.OK);
+        }).orElse(
+                new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        );
 
     }
 }

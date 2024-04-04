@@ -40,7 +40,7 @@ public class BookController {
                 .collect(Collectors.toList());
     }
     @GetMapping(path = "/books/{isbn}")
-    public ResponseEntity<BookDto> findOne(@PathVariable("isbn") String isbn){
+    public ResponseEntity<BookDto> getBooks(@PathVariable("isbn") String isbn){
         BookEntity bookEntity = bookService.findOne(isbn);
         if(bookEntity == null){
             return ResponseEntity.notFound().build();
