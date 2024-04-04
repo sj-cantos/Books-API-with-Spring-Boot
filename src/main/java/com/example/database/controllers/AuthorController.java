@@ -42,7 +42,7 @@ public class AuthorController {
         if(authorEntity == null){
             return ResponseEntity.notFound().build();
         }
-        return new ResponseEntity<>(authorMapper.mapTo(authorEntity), HttpStatus.CREATED);
+        return ResponseEntity.ok(authorMapper.mapTo(authorEntity));
 
     }
 }
