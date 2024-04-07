@@ -41,8 +41,5 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
-    @Override
-    public Optional<BookEntity> findBooks(AuthorEntity authorEntity) {
-        return Optional.empty();
-    }
+
 }

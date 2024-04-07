@@ -32,11 +32,8 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Optional<AuthorEntity> findOne(long id) {
-        Optional<AuthorEntity> author = authorRepository.findById(id);
-        if(author.isPresent()){
-            return author;
-        }
-        return null;
+        return authorRepository.findById(id);
+
     }
 
 }
