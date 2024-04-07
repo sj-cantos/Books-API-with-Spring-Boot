@@ -4,6 +4,9 @@ import com.example.database.TestDataUtil;
 import com.example.database.domain.dto.BookDto;
 import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.domain.entities.BookEntity;
+import com.example.database.mappers.Mapper;
+import com.example.database.mappers.impl.BookMapperImpl;
+import com.example.database.services.BookService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -18,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.awt.print.Book;
+
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
@@ -25,11 +30,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 public class BookControllerIntegrationTests {
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
+    private BookService bookService;
+    private Mapper<BookEntity,BookDto> bookMapper;
 
     @Autowired
-    public BookControllerIntegrationTests(MockMvc mockMvc) {
+    public BookControllerIntegrationTests(MockMvc mockMvc, BookService bookService,Mapper<BookEntity,BookDto> bookMapper) {
         this.mockMvc = mockMvc;
         this.objectMapper = new ObjectMapper();
+        this.bookService = bookService;
+        this.bookMapper = bookMapper;
     }
 
     @Test
@@ -54,6 +63,17 @@ public class BookControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.title").value("El FIlibusterismo")
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.author").isEmpty()
+        );
+    }
+    @Test
+    public void testThatGetBookByIdIsSuccess() throws Exception {
+        BookDto bookDto= TestDataUtil.createBookDtoA(null);
+        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
+        bookService.save(bookEntity,bookEntity.getIsbn());
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/books/" + bookDto.getIsbn() ).contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
         );
     }
 }
