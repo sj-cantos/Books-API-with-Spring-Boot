@@ -15,4 +15,5 @@ public interface BookService
 
     BookEntity findOne(String isbn);
 
+    List<BookEntity> findByAuthorId(Long id);
 }

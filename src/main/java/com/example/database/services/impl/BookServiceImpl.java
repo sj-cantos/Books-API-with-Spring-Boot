@@ -41,5 +41,8 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
-
+    @Override
+    public List<BookEntity> findByAuthorId(Long id) {
+        return bookRepository.findByAuthorEntityId(id);
+    }
 }
