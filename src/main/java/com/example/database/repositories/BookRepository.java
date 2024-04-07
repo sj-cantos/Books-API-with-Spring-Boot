@@ -11,5 +11,5 @@ import java.util.Optional;
 
 @Repository
 public interface BookRepository extends CrudRepository<BookEntity, String> {
-
+    List<BookEntity> findByAuthorEntityId(Long authorId);
 }
