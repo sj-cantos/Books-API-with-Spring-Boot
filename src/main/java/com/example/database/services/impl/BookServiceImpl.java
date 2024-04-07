@@ -1,6 +1,7 @@
 package com.example.database.services.impl;
 
 import com.example.database.domain.dto.BookDto;
+import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.domain.entities.BookEntity;
 import com.example.database.repositories.BookRepository;
 import com.example.database.services.BookService;
@@ -38,5 +39,10 @@ public class BookServiceImpl implements BookService {
             return book;
         }
         return null;
+    }
+
+    @Override
+    public Optional<BookEntity> findBooks(AuthorEntity authorEntity) {
+        return Optional.empty();
     }
 }
