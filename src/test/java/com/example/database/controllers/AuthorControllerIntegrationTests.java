@@ -3,6 +3,7 @@ package com.example.database.controllers;
 
 import com.example.database.TestDataUtil;
 import com.example.database.domain.entities.AuthorEntity;
+import com.example.database.services.AuthorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -26,11 +27,14 @@ public class AuthorControllerIntegrationTests {
 
     private MockMvc mockMvc;
     private ObjectMapper objectMapper;
+    private AuthorService authorService;
+
 
     @Autowired
-    public AuthorControllerIntegrationTests(MockMvc mockMvc) {
+    public AuthorControllerIntegrationTests(MockMvc mockMvc, AuthorService authorService) {
         this.mockMvc = mockMvc;
         this.objectMapper = new ObjectMapper();
+        this.authorService = authorService;
     }
     @Test
     public void testThatCreateAuthorIsSuccessful() throws Exception {
@@ -65,6 +69,22 @@ public class AuthorControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.age").value(70));
 
     }
+    @Test
+    public void testThatCreateAuthorReturns201WhenExists() throws Exception {
+        AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
+        authorEntity.setId(null);
+        authorService.save(authorEntity);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
+        );
+
+    }
+
 
 
 
