@@ -73,6 +73,12 @@ public class BookControllerIntegrationTests {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/books/" + bookDto.getIsbn() ).contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.isbn").value("QWEQ-123421-3434")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.title").value("El FIlibusterismo")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.author").isEmpty()
+        ).andExpect(
                 MockMvcResultMatchers.status().isOk()
         );
     }
