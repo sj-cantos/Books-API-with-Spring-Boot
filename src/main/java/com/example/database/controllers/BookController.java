@@ -49,6 +49,15 @@ public class BookController {
        return ResponseEntity.ok(bookMapper.mapTo(bookEntity));
     }
 
+    @GetMapping(path = "/books/{author_id}")
+    public List<BookDto> getBooks(@PathVariable("author_id") Long id){
+        List<BookEntity> bookEntityList = bookService.findByAuthorId(id);
+        return bookEntityList.stream()
+                .map(bookMapper::mapTo)
+                .collect(Collectors.toList());
+    }
+
+
 
 
 }
