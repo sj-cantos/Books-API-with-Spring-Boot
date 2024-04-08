@@ -13,7 +13,7 @@ public interface BookService
     BookEntity save(BookEntity bookEntity, String isbn);
     List<BookEntity> findAll();
 
-    BookEntity findOne(String isbn);
+    Optional<BookEntity> findOne(String isbn);
 
     List<BookEntity> findByAuthorId(Long id);
 }
