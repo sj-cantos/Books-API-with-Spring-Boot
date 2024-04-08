@@ -48,4 +48,17 @@ public class AuthorController {
         );
 
     }
+
+    @PutMapping(path = "/authors/{id}")
+    public ResponseEntity<AuthorDto> editAuthor(@PathVariable("id") Long id, @RequestBody AuthorDto authorDto){
+        if(!authorService.isExists(id)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        }
+        AuthorEntity authorEntity = authorMapper.mapFrom(authorDto);
+        AuthorEntity savedAuthor = authorService.save(authorEntity);
+        AuthorDto author = authorMapper.mapTo(savedAuthor);
+        return new ResponseEntity<>(author,HttpStatus.OK);
+
+    }
 }
