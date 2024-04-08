@@ -103,6 +103,19 @@ public class AuthorControllerIntegrationTests {
 
     }
 
+    @Test
+    public void testThatNonAuthorReturns404When() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+        ).andExpect(
+                MockMvcResultMatchers.status().isNotFound()
+        );
+
+    }
+
 
 
 
