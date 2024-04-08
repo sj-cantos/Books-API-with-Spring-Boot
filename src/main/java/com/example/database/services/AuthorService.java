@@ -10,4 +10,6 @@ public interface AuthorService {
     AuthorEntity save(AuthorEntity authorEntity);
     List<AuthorEntity> findAll();
     Optional<AuthorEntity> findOne(long id);
+
+    boolean isExists(Long id);
 }
