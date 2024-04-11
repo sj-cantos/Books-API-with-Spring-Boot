@@ -41,4 +41,9 @@ public class BookServiceImpl implements BookService {
     public List<BookEntity> findByAuthorId(Long id) {
         return bookRepository.findByAuthorEntityId(id);
     }
+
+    @Override
+    public boolean isExists(String isbn) {
+        return bookRepository.existsById(isbn);
+    }
 }

@@ -16,4 +16,6 @@ public interface BookService
     Optional<BookEntity> findOne(String isbn);
 
     List<BookEntity> findByAuthorId(Long id);
+
+    boolean isExists(String isbn);
 }
