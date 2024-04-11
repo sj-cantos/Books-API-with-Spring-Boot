@@ -84,7 +84,7 @@ public class BookControllerIntegrationTests {
     }
 
     @Test
-    public void testThatBookEditedReturns201() throws Exception {
+    public void testThatBookEditedReturnsCorrectData() throws Exception {
         BookDto bookDto = TestDataUtil.createBookDtoA(null);
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
         BookEntity savedBook = bookService.save(bookEntity,bookDto.getIsbn());
@@ -101,6 +101,22 @@ public class BookControllerIntegrationTests {
                 MockMvcResultMatchers.jsonPath("$.title").value("Math")
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.author").isEmpty()
+        );
+    }
+    @Test
+    public void testThatBookEditedReturns201() throws Exception {
+        BookDto bookDto = TestDataUtil.createBookDtoA(null);
+        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
+        BookEntity savedBook = bookService.save(bookEntity,bookDto.getIsbn());
+
+        BookDto editBookData = TestDataUtil.createBookDtoA(null);
+        editBookData.setTitle("Math");
+        String json = objectMapper.writeValueAsString(editBookData);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/books/" + bookDto.getIsbn() ).contentType(MediaType.APPLICATION_JSON).content(json)
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
         );
     }
 
