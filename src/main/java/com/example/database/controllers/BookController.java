@@ -53,7 +53,7 @@ public class BookController {
 
     }
 
-    @PutMapping(path = "books/edit/{isbn}")
+    @PutMapping(path = "books/update/{isbn}")
     public ResponseEntity<BookDto> updateBook(@PathVariable("isbn") String isbn, @RequestBody BookDto bookDto){
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
         BookEntity savedBook = bookService.save(bookEntity,isbn);
