@@ -55,6 +55,11 @@ public class BookController {
 
     @PutMapping(path = "books/update/{isbn}")
     public ResponseEntity<BookDto> updateBook(@PathVariable("isbn") String isbn, @RequestBody BookDto bookDto){
+
+        if (!bookService.isExists(isbn)){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
         BookEntity savedBook = bookService.save(bookEntity,isbn);
         BookDto editedBookDto = bookMapper.mapTo(savedBook);
