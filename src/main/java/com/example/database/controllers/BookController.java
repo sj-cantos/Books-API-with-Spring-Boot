@@ -30,8 +30,18 @@ public class BookController {
     @PutMapping(path = "/books/{isbn}")
     public ResponseEntity<BookDto> createBook(@PathVariable("isbn") String isbn, @RequestBody BookDto bookDto){
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        BookEntity savedBookEntity = bookService.save(bookEntity,isbn);
-        return new ResponseEntity<>(bookMapper.mapTo(savedBookEntity),HttpStatus.CREATED);
+        BookEntity savedBook = bookService.save(bookEntity,isbn);
+        boolean isExists = bookService.isExists(isbn);
+
+        if (bookService.isExists(isbn)){
+            return new ResponseEntity<>(bookMapper.mapTo(savedBook),HttpStatus.OK);
+        }
+        else {
+            BookDto editedBookDto = bookMapper.mapTo(savedBook);
+            return new ResponseEntity<>(editedBookDto,HttpStatus.OK);
+        }
+
+
     }
 
     @GetMapping(path = "/books")
@@ -53,18 +63,7 @@ public class BookController {
 
     }
 
-    @PutMapping(path = "books/update/{isbn}")
-    public ResponseEntity<BookDto> updateBook(@PathVariable("isbn") String isbn, @RequestBody BookDto bookDto){
 
-        if (!bookService.isExists(isbn)){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        BookEntity savedBook = bookService.save(bookEntity,isbn);
-        BookDto editedBookDto = bookMapper.mapTo(savedBook);
-        return new ResponseEntity<>(editedBookDto,HttpStatus.OK);
-    }
     @GetMapping(path = "/books/author/{author_id}")
     public List<BookDto> getBooksByAuthor(@PathVariable("author_id") Long id){
         List<BookEntity> bookEntityList = bookService.findByAuthorId(id);
