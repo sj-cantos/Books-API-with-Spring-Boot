@@ -94,7 +94,7 @@ public class BookControllerIntegrationTests {
         String json = objectMapper.writeValueAsString(editBookData);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.put("/books/update/" + bookDto.getIsbn() ).contentType(MediaType.APPLICATION_JSON).content(json)
+                MockMvcRequestBuilders.put("/books/" + bookDto.getIsbn() ).contentType(MediaType.APPLICATION_JSON).content(json)
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.isbn").value("QWEQ-123421-3434")
         ).andExpect(
