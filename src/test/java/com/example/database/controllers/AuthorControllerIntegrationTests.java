@@ -183,9 +183,9 @@ public class AuthorControllerIntegrationTests {
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.id").value(1)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value("Juan Maria")
+                MockMvcResultMatchers.jsonPath("$.name").value(authorDto.getName())
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.age").value(22));
+                MockMvcResultMatchers.jsonPath("$.age").value(authorDto.getAge()));
     }
 
 
