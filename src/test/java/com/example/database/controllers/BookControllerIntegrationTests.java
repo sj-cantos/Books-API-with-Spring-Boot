@@ -83,5 +83,26 @@ public class BookControllerIntegrationTests {
         );
     }
 
+    @Test
+    public void testThatBookEditedReturns201() throws Exception {
+        BookDto bookDto = TestDataUtil.createBookDtoA(null);
+        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
+        BookEntity savedBook = bookService.save(bookEntity,bookDto.getIsbn());
+
+        BookDto editBookData = TestDataUtil.createBookDtoA(null);
+        editBookData.setTitle("Math");
+        String json = objectMapper.writeValueAsString(editBookData);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/books/edit/" + bookDto.getIsbn() ).contentType(MediaType.APPLICATION_JSON).content(json)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.isbn").value("QWEQ-123421-3434")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.title").value("Math")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.author").isEmpty()
+        );
+    }
+
 
 }
