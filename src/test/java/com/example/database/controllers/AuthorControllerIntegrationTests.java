@@ -150,7 +150,7 @@ public class AuthorControllerIntegrationTests {
 
     }
     @Test
-    public void testThatAuthorIsEdited() throws Exception {
+    public void testThatAuthorEditedisOK() throws Exception {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
         AuthorEntity savedAuthor = authorService.save(authorEntity);
 
@@ -165,6 +165,27 @@ public class AuthorControllerIntegrationTests {
         ).andExpect(
                 MockMvcResultMatchers.status().isOk()
         );
+    }
+    @Test
+    public void testThatAuthorIsEdited() throws Exception {
+        AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
+        AuthorEntity savedAuthor = authorService.save(authorEntity);
+
+        AuthorDto authorDto = TestDataUtil.createTestAuthorDto();
+        authorDto.setId(savedAuthor.getId());
+        String json = objectMapper.writeValueAsString(authorDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.put("/authors/" + savedAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").value(1)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value("Juan Maria")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(22));
     }
 
 
