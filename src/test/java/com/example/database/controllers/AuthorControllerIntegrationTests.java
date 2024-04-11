@@ -2,6 +2,7 @@ package com.example.database.controllers;
 
 
 import com.example.database.TestDataUtil;
+import com.example.database.domain.dto.AuthorDto;
 import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.services.AuthorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -134,7 +135,7 @@ public class AuthorControllerIntegrationTests {
 
     }
     @Test
-    public void testThatEditReturns404WhenNotExists() throws Exception {
+    public void testThatReturns404WhenAuthorNotExists() throws Exception {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
         authorEntity.setId(null);
         authorService.save(authorEntity);
@@ -151,23 +152,19 @@ public class AuthorControllerIntegrationTests {
     @Test
     public void testThatAuthorIsEdited() throws Exception {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
-        authorEntity.setId(null);
-        authorService.save(authorEntity);
+        AuthorEntity savedAuthor = authorService.save(authorEntity);
 
-        AuthorEntity authorEntityB = TestDataUtil.createTestAuthor1();
-        authorEntityB.setAge(30);
-        authorService.save(authorEntityB);
+        AuthorDto authorDto = TestDataUtil.createTestAuthorDto();
+        String json = objectMapper.writeValueAsString(authorDto);
+
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/authors/1")
+                MockMvcRequestBuilders.put("/authors/" + savedAuthor.getId())
                         .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
 
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").value(1)
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value("Shannon John")
-        ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.age").value(30));
-
+                MockMvcResultMatchers.status().isOk()
+        );
     }
 
 
