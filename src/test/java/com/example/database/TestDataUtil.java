@@ -31,6 +31,13 @@ public final class TestDataUtil {
                 name("Juan Maria").
                 build();
     }
+    public static AuthorDto createTestAuthorDto() {
+        return AuthorDto.builder().
+                age(22).
+                id(3L).
+                name("Juan Maria").
+                build();
+    }
 
     public static BookEntity createBookA(final AuthorEntity authorEntity) {
         return BookEntity.builder()
