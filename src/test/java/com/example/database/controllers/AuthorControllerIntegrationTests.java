@@ -134,6 +134,21 @@ public class AuthorControllerIntegrationTests {
 
     }
     @Test
+    public void testThatEditReturns404WhenNotExists() throws Exception {
+        AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
+        authorEntity.setId(null);
+        authorService.save(authorEntity);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/authors/99")
+                        .contentType(MediaType.APPLICATION_JSON)
+
+        ).andExpect(
+                MockMvcResultMatchers.status().isNotFound()
+        );
+
+    }
+    @Test
     public void testThatAuthorIsEdited() throws Exception {
         AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
         authorEntity.setId(null);
