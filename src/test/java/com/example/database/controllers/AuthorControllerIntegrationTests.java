@@ -206,6 +206,28 @@ public class AuthorControllerIntegrationTests {
         );
     }
 
+    @Test
+    public void testThatAuthorPatchReturnsCorrectData() throws Exception{
+        AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
+        AuthorEntity savedAuthor = authorService.save(authorEntity);
+
+        AuthorDto authorDto = TestDataUtil.createTestAuthorDto();
+        authorDto.setId(savedAuthor.getId());
+        String json = objectMapper.writeValueAsString(authorDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.patch("/authors/" + authorDto.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.id").value(1L)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.age").value(22)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.name").value("Juan Maria")
+        );
+    }
+
 
 
 
