@@ -212,19 +212,19 @@ public class AuthorControllerIntegrationTests {
         AuthorEntity savedAuthor = authorService.save(authorEntity);
 
         AuthorDto authorDto = TestDataUtil.createTestAuthorDto();
-        authorDto.setId(savedAuthor.getId());
+        authorDto.setName("Updated");
         String json = objectMapper.writeValueAsString(authorDto);
 
         mockMvc.perform(
-                MockMvcRequestBuilders.patch("/authors/" + authorDto.getId())
+                MockMvcRequestBuilders.patch("/authors/" + savedAuthor.getId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.id").value(1L)
+                MockMvcResultMatchers.jsonPath("$.id").value(savedAuthor.getId())
         ).andExpect(
                 MockMvcResultMatchers.jsonPath("$.age").value(22)
         ).andExpect(
-                MockMvcResultMatchers.jsonPath("$.name").value("Juan Maria")
+                MockMvcResultMatchers.jsonPath("$.name").value("Updated")
         );
     }
 
