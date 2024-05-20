@@ -141,6 +141,31 @@ public class BookControllerIntegrationTests {
 
 
     }
+    @Test
+    public void testThatBookPatchedReturnsCorrectData() throws Exception{
+
+        BookDto bookDto = TestDataUtil.createBookDtoA(null);
+        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
+        BookEntity savedBook = bookService.save(bookEntity, bookDto.getIsbn());
+
+        BookDto editBookDto = TestDataUtil.createBookDtoA(null);
+        editBookDto.setTitle("updated");
+        String json = objectMapper.writeValueAsString(editBookDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.patch("/books/"+savedBook.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.isbn").value(savedBook.getIsbn())
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.title").value("updated")
+        ).andExpect(
+                MockMvcResultMatchers.jsonPath("$.author").isEmpty()
+        );
+
+
+    }
 
 
 }
