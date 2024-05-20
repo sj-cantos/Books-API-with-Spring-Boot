@@ -120,5 +120,27 @@ public class BookControllerIntegrationTests {
         );
     }
 
+    @Test
+    public void testThatBookPatchedReturns201() throws Exception{
+
+        BookDto bookDto = TestDataUtil.createBookDtoA(null);
+        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
+        BookEntity savedBook = bookService.save(bookEntity, bookDto.getIsbn());
+
+        BookDto editBookDto = TestDataUtil.createBookDtoA(null);
+        editBookDto.setTitle("updated");
+        String json = objectMapper.writeValueAsString(editBookDto);
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.patch("/books/"+savedBook.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json)
+        ).andExpect(
+                MockMvcResultMatchers.status().isOk()
+        );
+
+
+    }
+
 
 }

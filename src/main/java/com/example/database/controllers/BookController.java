@@ -70,7 +70,7 @@ public class BookController {
                 .collect(Collectors.toList());
     }
 
-    @PatchMapping(path = "books/isbn")
+    @PatchMapping(path = "books/{isbn}")
     public ResponseEntity<BookDto> updateBook(@RequestBody BookDto bookDto, @PathVariable("isbn") String isbn){
         if(!bookService.isExists(isbn)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
