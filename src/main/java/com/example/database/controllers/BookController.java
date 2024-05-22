@@ -1,23 +1,20 @@
 package com.example.database.controllers;
 
-import com.example.database.domain.dto.AuthorDto;
 import com.example.database.domain.dto.BookDto;
-import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.domain.entities.BookEntity;
 import com.example.database.mappers.Mapper;
-import com.example.database.mappers.impl.BookMapperImpl;
 import com.example.database.services.BookService;
-import com.example.database.services.impl.BookServiceImpl;
+import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
+@Log
 public class BookController {
     private BookService bookService;
     private Mapper<BookEntity, BookDto> bookMapper;
@@ -30,15 +27,15 @@ public class BookController {
     @PutMapping(path = "/books/{isbn}")
     public ResponseEntity<BookDto> createBook(@PathVariable("isbn") String isbn, @RequestBody BookDto bookDto){
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        BookEntity savedBook = bookService.save(bookEntity,isbn);
         boolean isExists = bookService.isExists(isbn);
-
-        if (bookService.isExists(isbn)){
+        BookEntity savedBook = bookService.createUpdate(bookEntity,isbn);
+        if (isExists){
+            log.info("updated " + isbn);
             return new ResponseEntity<>(bookMapper.mapTo(savedBook),HttpStatus.OK);
         }
         else {
-            BookDto editedBookDto = bookMapper.mapTo(savedBook);
-            return new ResponseEntity<>(editedBookDto,HttpStatus.OK);
+            log.info("created " + isbn);
+            return new ResponseEntity<>(bookMapper.mapTo(savedBook),HttpStatus.CREATED);
         }
 
 

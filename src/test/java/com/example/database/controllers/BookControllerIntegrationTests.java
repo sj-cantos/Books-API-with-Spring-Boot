@@ -2,12 +2,9 @@ package com.example.database.controllers;
 
 import com.example.database.TestDataUtil;
 import com.example.database.domain.dto.BookDto;
-import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.domain.entities.BookEntity;
 import com.example.database.mappers.Mapper;
-import com.example.database.mappers.impl.BookMapperImpl;
 import com.example.database.services.BookService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,8 +17,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.awt.print.Book;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -69,7 +64,7 @@ public class BookControllerIntegrationTests {
     public void testThatGetBookByIdIsSuccess() throws Exception {
         BookDto bookDto= TestDataUtil.createBookDtoA(null);
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        bookService.save(bookEntity,bookEntity.getIsbn());
+        bookService.createUpdate(bookEntity,bookEntity.getIsbn());
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/books/" + bookDto.getIsbn() ).contentType(MediaType.APPLICATION_JSON)
         ).andExpect(
@@ -87,7 +82,7 @@ public class BookControllerIntegrationTests {
     public void testThatBookEditedReturnsCorrectData() throws Exception {
         BookDto bookDto = TestDataUtil.createBookDtoA(null);
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        BookEntity savedBook = bookService.save(bookEntity,bookDto.getIsbn());
+        BookEntity savedBook = bookService.createUpdate(bookEntity,bookDto.getIsbn());
 
         BookDto editBookData = TestDataUtil.createBookDtoA(null);
         editBookData.setTitle("Math");
@@ -107,7 +102,7 @@ public class BookControllerIntegrationTests {
     public void testThatBookEditedReturns201() throws Exception {
         BookDto bookDto = TestDataUtil.createBookDtoA(null);
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        BookEntity savedBook = bookService.save(bookEntity,bookDto.getIsbn());
+        BookEntity savedBook = bookService.createUpdate(bookEntity,bookDto.getIsbn());
 
         BookDto editBookData = TestDataUtil.createBookDtoA(null);
         editBookData.setTitle("Math");
@@ -125,7 +120,7 @@ public class BookControllerIntegrationTests {
 
         BookDto bookDto = TestDataUtil.createBookDtoA(null);
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        BookEntity savedBook = bookService.save(bookEntity, bookDto.getIsbn());
+        BookEntity savedBook = bookService.createUpdate(bookEntity, bookDto.getIsbn());
 
         BookDto editBookDto = TestDataUtil.createBookDtoA(null);
         editBookDto.setTitle("updated");
@@ -146,7 +141,7 @@ public class BookControllerIntegrationTests {
 
         BookDto bookDto = TestDataUtil.createBookDtoA(null);
         BookEntity bookEntity = bookMapper.mapFrom(bookDto);
-        BookEntity savedBook = bookService.save(bookEntity, bookDto.getIsbn());
+        BookEntity savedBook = bookService.createUpdate(bookEntity, bookDto.getIsbn());
 
         BookDto editBookDto = TestDataUtil.createBookDtoA(null);
         editBookDto.setTitle("updated");
