@@ -228,6 +228,29 @@ public class AuthorControllerIntegrationTests {
         );
     }
 
+    @Test
+    public void testThatExistingAuthorWhenDeletedReturns204() throws Exception {
+        AuthorEntity authorEntity = TestDataUtil.createTestAuthor1();
+        AuthorEntity savedAuthor = authorService.save(authorEntity);
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/authors/"+ savedAuthor.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.status().isNoContent()
+        );
+    }
+    @Test
+    public void testThatNonExistingAuthorWhenDeletedReturns204() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/authors/"+ 21)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.status().isNoContent()
+        );
+    }
+
+
 
 
 
