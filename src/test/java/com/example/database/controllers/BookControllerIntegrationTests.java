@@ -2,6 +2,7 @@ package com.example.database.controllers;
 
 import com.example.database.TestDataUtil;
 import com.example.database.domain.dto.BookDto;
+import com.example.database.domain.entities.AuthorEntity;
 import com.example.database.domain.entities.BookEntity;
 import com.example.database.mappers.Mapper;
 import com.example.database.services.BookService;
@@ -161,6 +162,30 @@ public class BookControllerIntegrationTests {
 
 
     }
+    @Test
+    public void testThatExistingBookWhenDeletedReturns204() throws Exception {
+        BookDto bookDto = TestDataUtil.createBookDtoA(null);
+        BookEntity bookEntity = bookMapper.mapFrom(bookDto);
+        BookEntity savedBook = bookService.createUpdate(bookEntity, bookDto.getIsbn());
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/books/"+ savedBook.getIsbn())
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.status().isNoContent()
+        );
+    }
+    @Test
+    public void testThatNonExistingBookWhenDeletedReturns204() throws Exception {
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.delete("/books/"+ "ksjadklajs")
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(
+                MockMvcResultMatchers.status().isNoContent()
+        );
+    }
+
 
 
 }
