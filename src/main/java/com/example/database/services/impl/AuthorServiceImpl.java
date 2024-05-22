@@ -51,4 +51,9 @@ public class AuthorServiceImpl implements AuthorService {
         }).orElseThrow(()->new RuntimeException("Author not found"));
 
     }
+
+    @Override
+    public void delete(Long id) {
+        authorRepository.deleteById(id);
+    }
 }
